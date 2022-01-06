@@ -14,19 +14,16 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserRepository userRepository;
+
     private UserService userService;
 
-    public UserController(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/all")
     public List<User> all() {
-
         return userService.findAll();
-
 
     }
 
@@ -38,7 +35,7 @@ public class UserController {
 
     @PostMapping("/findbyusername")
     public ResponseEntity<UserDTO> findUserByUsername(UserDTO userDTO) {
-
         return null;
+
     }
 }
