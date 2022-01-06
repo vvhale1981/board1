@@ -14,10 +14,11 @@ public class CommentDTO {
     private String message;
     private LocalDateTime createdDate;
 
-    public CommentDTO(Long id, Long taskId, String username, String message) {
+    public CommentDTO(Long id, Long taskId, String username, String message, LocalDateTime createdDate) {
         this.id = id;
         this.taskId = taskId;
         this.username = username;
         this.message = message;
+        this.createdDate = createdDate;
     }
 }

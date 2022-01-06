@@ -4,10 +4,7 @@ package ru.lok.board.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.lok.board.DTO.DepartmentDTO;
 import ru.lok.board.entity.Department;
 import ru.lok.board.entity.Task;
@@ -39,6 +36,13 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.getTaskForDepatment(department.getId()));
 
     }
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<String> deleteDepartment(@PathVariable Long id){
+        departmentService.deleteDepartment(id);
+        return ResponseEntity.ok("ok");
+    }
+
 
 
 }

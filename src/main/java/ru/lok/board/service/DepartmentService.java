@@ -27,6 +27,9 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
+    public void deleteDepartment(Long departmentId){
+        departmentRepository.delete(departmentRepository.findDepartmentById(departmentId).get());
+    }
 
     public List<Task> getAllTaskForDepartment(Long departmentId) {
         Department department = departmentRepository.findById(departmentId).get();

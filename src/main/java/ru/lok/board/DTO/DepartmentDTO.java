@@ -9,4 +9,9 @@ public class DepartmentDTO {
     private String nameDepartment;
     private String title;
 
+    public DepartmentDTO(Long id, String nameDepartment, String title) {
+        this.id = id;
+        this.nameDepartment = nameDepartment;
+        this.title = title;
+    }
 }
