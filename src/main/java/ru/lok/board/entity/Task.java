@@ -1,6 +1,6 @@
 package ru.lok.board.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Task {
 
     @Id
@@ -19,13 +22,12 @@ public class Task {
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "task", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "task")
     private List<Comment> list = new ArrayList<>();
     private String title;
     @Column(columnDefinition = "text")
     private String message;
     private Integer complited;
-
     @Column(updatable = false)
     private LocalDateTime createdDate;
 
