@@ -20,6 +20,7 @@ public class TaskDto {
     private Integer complited;
     private LocalDateTime createdDate;
 
+
     public static TaskDto taskToDto(Task task){
         return new TaskDto(task.getId(),
                 task.getUser().getId(),
