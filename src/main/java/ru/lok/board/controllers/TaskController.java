@@ -2,12 +2,10 @@ package ru.lok.board.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.TaskDto;
 import ru.lok.board.entity.Task;
+import ru.lok.board.service.TaskService;
 
 import java.util.List;
 
@@ -15,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/task")
 public class TaskController {
+
+    private final TaskService taskService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Task>> findAll() {
@@ -29,5 +29,13 @@ public class TaskController {
     @PostMapping("/update")
     public ResponseEntity<TaskDto> update(TaskDto taskDTO) {
         return null;
+    }
+
+    @GetMapping("/{id}/setcomlit")
+    public  ResponseEntity<TaskDto> setComplit(@PathVariable Long id){
+        return ResponseEntity.ok(taskService.setComplit(id));
+
+
+
     }
 }
