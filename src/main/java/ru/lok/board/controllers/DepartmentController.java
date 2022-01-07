@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.DepartmentDto;
+import ru.lok.board.dto.TaskDto;
 import ru.lok.board.entity.Department;
-import ru.lok.board.entity.Task;
 import ru.lok.board.repository.DepartmentRepository;
 import ru.lok.board.service.DepartmentService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
@@ -22,16 +24,18 @@ public class DepartmentController {
     private final DepartmentRepository departmentRepository;
 
 
-    @PostMapping("/add")
-    public ResponseEntity<Department> add(@RequestBody DepartmentDto departmentDTO) {
-        return ResponseEntity.ok(departmentService.createDepartment(departmentDTO));
+    @PostMapping("/")
+    public ResponseEntity<Department> add(@RequestBody DepartmentDto departmentDto) {
+        return ResponseEntity.ok(departmentService.createDepartment(departmentDto));
     }
 
-    @PostMapping("/task")
-    public ResponseEntity<List<Task>> getNotComlitedTask(@RequestBody DepartmentDto departmentDTO) {
-        Long depId = departmentDTO.getId();
-        Department department = departmentRepository.findDepartmentById(depId).get();
-        return ResponseEntity.ok(departmentService.getTaskForDepatment(department.getId()));
+    @GetMapping("/{idDep}/task")
+    public ResponseEntity<List<TaskDto>> getTask(@PathVariable Long idDep) {
+        Department department = departmentRepository.findById(idDep)
+                .orElseThrow(() -> new NoSuchElementException("not found department with id " + idDep));
+        List<TaskDto> taskDtos = departmentService.getTaskForDepatment(department.getId())
+                .stream().map(TaskDto::taskToDto).collect(Collectors.toList());
+        return ResponseEntity.ok(taskDtos);
     }
 
     @GetMapping("/delete/{id}")

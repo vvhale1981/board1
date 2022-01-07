@@ -1,16 +1,17 @@
 package ru.lok.board.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.lok.board.entity.Task;
-
-import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class TaskDto {
+public class TaskDto extends DateCreateUpdateDto {
 
     private Long id;
     private Long userId;
@@ -18,17 +19,19 @@ public class TaskDto {
     private String title;
     private String message;
     private Integer complited;
-    private LocalDateTime createdDate;
 
 
-    public static TaskDto taskToDto(Task task){
-        return new TaskDto(task.getId(),
-                task.getUser().getId(),
-                task.getDepartment().getId(),
-                task.getTitle(),
-                task.getMessage(),
-                task.getComplited(),
-                task.getCreatedDate()
-        );
+    public static TaskDto taskToDto(Task task) {
+        TaskDto taskDto = new TaskDto();
+        taskDto.setId(task.getId());
+        taskDto.setUserId(task.getDepartment().getId());
+        taskDto.setDepartmentId(task.getDepartment().getId());
+        taskDto.setTitle(task.getTitle());
+        taskDto.setMessage(task.getMessage());
+        taskDto.setComplited(task.getComplited());
+        taskDto.setCreatedDate(task.getCreatedDate());
+        taskDto.setUpdatedDate(task.getUpdateDate());
+        return taskDto;
+
     }
 }

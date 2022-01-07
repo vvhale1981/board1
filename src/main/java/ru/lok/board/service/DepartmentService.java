@@ -9,6 +9,7 @@ import ru.lok.board.repository.DepartmentRepository;
 import ru.lok.board.repository.TaskRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -18,7 +19,6 @@ public class DepartmentService {
     private final TaskRepository taskRepository;
 
 
-
     public Department createDepartment(DepartmentDto departmentDTO) {
         Department department = new Department();
         department.setTitle(departmentDTO.getTitle());
@@ -26,21 +26,20 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public void deleteDepartment(Long departmentId){
-        departmentRepository.delete(departmentRepository.findDepartmentById(departmentId).get());
+    public void deleteDepartment(Long departmentId) {
+        departmentRepository.delete(departmentRepository.findById(departmentId).orElseThrow(() -> new NoSuchElementException("not found department with id" + departmentId)));
     }
 
     public List<Task> getAllTaskForDepartment(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId).get();
-        return taskRepository.findTaskByDepartment(department).get();
-
+        Department department = departmentRepository.findById(departmentId).orElseThrow(() -> new NoSuchElementException("not found department with id" + departmentId));
+        return taskRepository.findTaskByDepartment(department);
     }
 
 
     public List<Task> getTaskForDepatment(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId).get();
-        return taskRepository.findTaskByDepartment(department).get();
-
+        Department department = departmentRepository.findById(departmentId)
+                .orElseThrow(() -> new NoSuchElementException("not found department with id " + departmentId));
+        return taskRepository.findTaskByDepartment(department);
     }
 
 

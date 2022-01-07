@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.UserDto;
-import ru.lok.board.entity.User;
 import ru.lok.board.service.UserService;
 
 import java.util.List;
@@ -16,18 +15,23 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/all")
-    public List<User> all() {
-        return userService.findAll();
+    @GetMapping("/")
+    public ResponseEntity<List<UserDto>> all() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<UserDto> add(@RequestBody UserDto userDTO) {
         return ResponseEntity.ok(userService.add(userDTO));
     }
 
-    @PostMapping("/findbyusername")
-    public ResponseEntity<UserDto> findUserByUsername(UserDto userDTO) {
-        return null;
+    @PutMapping("/")
+    public ResponseEntity<UserDto> update(@RequestBody UserDto userDTO) {
+        return ResponseEntity.ok(userService.update(userDTO));
+    }
+
+    @GetMapping("/serch/{username}")
+    public ResponseEntity<UserDto> findUserByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findUserByUsername(username));
     }
 }

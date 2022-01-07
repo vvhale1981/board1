@@ -7,23 +7,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.lok.board.entity.User;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class UserDto extends DateCreateUpdateDto {
     private Long id;
     private String username;
     private String password;
-    private LocalDateTime createdDate;
+
 
     public static UserDto userToDto(User user) {
-        return new UserDto(
-                user.getId(),
-                user.getUsername(),
-                "password",
-                user.getCreatedDate());
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setPassword("password");
+        userDto.setCreatedDate(user.getCreatedDate());
+        userDto.setUpdatedDate(user.getUpdateDate());
+        return userDto;
     }
 }

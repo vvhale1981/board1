@@ -1,17 +1,20 @@
 package ru.lok.board.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Comment {
+public class Comment extends DateCreateUpdate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,14 +24,5 @@ public class Comment {
     private String username;
     @Column(nullable = false, columnDefinition = "text")
     private String message;
-    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
-
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdDate = LocalDateTime.now();
-    }
 
 }

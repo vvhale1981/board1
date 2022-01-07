@@ -16,19 +16,18 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<TaskDto>> findAll() {
         List<TaskDto> taskDto = taskService.findAll().stream().map(TaskDto::taskToDto).collect(Collectors.toList());
         return ResponseEntity.ok(taskDto);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<TaskDto> addTask(@RequestBody TaskDto taskDTO) {
-
         return ResponseEntity.ok(taskService.add(taskDTO));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/")
     public ResponseEntity<TaskDto> update(@RequestBody TaskDto taskDTO) {
         return ResponseEntity.ok(taskService.add(taskDTO));
     }

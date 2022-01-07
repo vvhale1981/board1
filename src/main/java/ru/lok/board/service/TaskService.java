@@ -21,8 +21,8 @@ public class TaskService {
     private final DepartmentRepository departmentRepository;
     private final UserRepository userRepository;
 
-    public TaskDto setComplit(Long id) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new NoSuchElementException("нет такой задачи"));
+    public TaskDto setComplit(Long taskId) {
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new NoSuchElementException("not found task with id " + taskId));
         task.setComplited(1);
         task = taskRepository.save(task);
         return TaskDto.taskToDto(task);
@@ -36,12 +36,12 @@ public class TaskService {
         Task task = new Task();
         task.setId(taskDto.getId());
         task.setDepartment(departmentRepository.findById(taskDto.getDepartmentId())
-                .orElseThrow(() -> new NoSuchElementException("нет такого департамента")));
+                .orElseThrow(() -> new NoSuchElementException("not found department with id " + taskDto.getDepartmentId())));
         task.setList(new ArrayList<Comment>());
         task.setTitle(taskDto.getTitle());
         task.setMessage(taskDto.getMessage());
         task.setUser(userRepository.findById(taskDto.getUserId())
-                .orElseThrow(() -> new NoSuchElementException("нет такого пользователя")));
+                .orElseThrow(() -> new NoSuchElementException("not found user with id " + taskDto.getUserId())));
         task.setComplited(0);
         return TaskDto.taskToDto(taskRepository.save(task));
     }

@@ -1,14 +1,11 @@
 package ru.lok.board.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.CommentDto;
-import ru.lok.board.entity.Comment;
 import ru.lok.board.service.CommentService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,24 +17,25 @@ public class CommentController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<CommentDto> CommentById(@PathVariable Long id) {
+    public ResponseEntity<CommentDto> сommentById(@PathVariable Long id) {
         return ResponseEntity.ok(commentService.commentById(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<CommentDto> add(@RequestBody CommentDto commentDTO) {
         CommentDto com = commentService.addComment(commentDTO);
         return ResponseEntity.ok(com);
     }
 
-    @GetMapping("/delete/{id}")
-    public ResponseEntity deleteComment(@PathVariable Long id) {
-        return ResponseEntity.ok(HttpEntity.EMPTY);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long id) {
+        commentService.deletComment(id);
+        return ResponseEntity.ok(" deleted comment id " + id);
     }
 
     @GetMapping("/task/{id}")
-    public ResponseEntity<List<Comment>> CommentsByTask(@PathVariable String id) {
-        List<Comment> comments = new ArrayList<>();
-        return ResponseEntity.ok(comments);
+    public ResponseEntity<List<CommentDto>> CommentsByTask(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.CommentsByTask(id));
+
     }
 }
