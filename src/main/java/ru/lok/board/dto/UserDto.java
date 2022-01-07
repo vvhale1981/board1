@@ -1,13 +1,16 @@
-package ru.lok.board.DTO;
+package ru.lok.board.dto;
 
 
-import lombok.Data;
+import lombok.*;
 
 
 import java.time.LocalDateTime;
 
-@Data
-public class UserDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class UserDto {
     private Long id;
     private String username;
     private String password;

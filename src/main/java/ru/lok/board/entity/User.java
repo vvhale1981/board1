@@ -1,12 +1,15 @@
 package ru.lok.board.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -15,12 +18,11 @@ public class User {
     private String username;
     private String password;
     @Column(updatable = false)
-   private LocalDateTime createdDate;
-
+    private LocalDateTime createdDate;
 
 
     @PrePersist
-    protected  void onCreate() {
+    protected void onCreate() {
         this.createdDate = LocalDateTime.now();
-   }
+    }
 }

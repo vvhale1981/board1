@@ -1,7 +1,8 @@
 package ru.lok.board.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.lok.board.DTO.DepartmentDTO;
+import ru.lok.board.dto.DepartmentDto;
 import ru.lok.board.entity.Department;
 import ru.lok.board.entity.Task;
 import ru.lok.board.repository.DepartmentRepository;
@@ -10,17 +11,15 @@ import ru.lok.board.repository.TaskRepository;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class DepartmentService {
 
-    private DepartmentRepository departmentRepository;
-    private TaskRepository taskRepository;
+    private final DepartmentRepository departmentRepository;
+    private final TaskRepository taskRepository;
 
-    public DepartmentService(DepartmentRepository departmentRepository, TaskRepository taskRepository) {
-        this.departmentRepository = departmentRepository;
-        this.taskRepository = taskRepository;
-    }
 
-    public Department createDepartment(DepartmentDTO departmentDTO) {
+
+    public Department createDepartment(DepartmentDto departmentDTO) {
         Department department = new Department();
         department.setTitle(departmentDTO.getTitle());
         department.setNameDepartment(departmentDTO.getNameDepartment());

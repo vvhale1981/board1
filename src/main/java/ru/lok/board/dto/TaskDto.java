@@ -1,11 +1,17 @@
-package ru.lok.board.DTO;
+package ru.lok.board.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 
-@Data
-public class TaskDTO {
+@AllArgsConstructor
+@Getter
+@Setter
+public class TaskDto {
 
     private Long id;
     private Long userId;

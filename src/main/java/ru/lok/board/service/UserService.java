@@ -2,8 +2,8 @@ package ru.lok.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.lok.board.DTO.UserDTO;
-import ru.lok.board.DTO.UserObjToDto;
+import ru.lok.board.dto.UserDto;
+import ru.lok.board.dto.UserObjToDto;
 import ru.lok.board.entity.User;
 import ru.lok.board.repository.UserRepository;
 
@@ -22,13 +22,13 @@ public class UserService {
 
     }
 
-    public UserDTO add(UserDTO userDTO){
+    public UserDto add(UserDto userDTO){
         User user =new User();
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
 
          User us = userRepository.save(user);
-        return userObjToDto.UserToUserDto(us);
+        return userObjToDto.userToUserDto(us);
 
     }
 

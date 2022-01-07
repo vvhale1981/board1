@@ -1,16 +1,15 @@
-package ru.lok.board.DTO;
+package ru.lok.board.dto;
 
 import org.springframework.stereotype.Component;
 import ru.lok.board.entity.Department;
 
 @Component
 public class DepartmentObgToDto {
-    public DepartmentDTO departmentToDTO(Department department) {
-        DepartmentDTO departmentDTO = new DepartmentDTO(
+    public DepartmentDto departmentToDTO(Department department) {
+        return new DepartmentDto(
                 department.getId(),
                 department.getNameDepartment(),
                 department.getTitle()
         );
-        return departmentDTO;
     }
 }

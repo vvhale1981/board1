@@ -1,19 +1,18 @@
-package ru.lok.board.DTO;
+package ru.lok.board.dto;
 
 import org.springframework.stereotype.Component;
 import ru.lok.board.entity.Comment;
 
 @Component
 public class CommentObjToDto {
-    public CommentDTO commentToCommentDTO(Comment comment){
-        CommentDTO commentDTO = new CommentDTO(
+    public CommentDto commentToCommentDTO(Comment comment) {
+        return new CommentDto(
                 comment.getId(),
                 comment.getTask().getId(),
                 comment.getUsername(),
                 comment.getMessage(),
                 comment.getCreatedDate()
         );
-        return commentDTO;
     }
 
 }
