@@ -8,6 +8,8 @@ import ru.lok.board.entity.Comment;
 import ru.lok.board.repository.CommentRepository;
 import ru.lok.board.repository.TaskRepository;
 
+import java.util.NoSuchElementException;
+
 @Service
 @AllArgsConstructor
 public class CommentService {
@@ -15,8 +17,10 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final TaskRepository taskRepository;
 
-    public String commentById(Long commentId) {
-        return commentRepository.findById(commentId).get().getMessage();
+    public CommentDto commentById(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new NoSuchElementException("нет такого комментария"));
+        return CommentDto.commentToDto(comment);
     }
 
     public CommentDto addComment(@NotNull CommentDto commentDTO) {

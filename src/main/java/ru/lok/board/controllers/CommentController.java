@@ -20,8 +20,8 @@ public class CommentController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> CommentById(@PathVariable String id) {
-        return ResponseEntity.ok(commentService.commentById(Long.parseLong(id)));
+    public ResponseEntity<CommentDto> CommentById(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.commentById(id));
     }
 
     @PostMapping("/add")
