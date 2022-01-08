@@ -1,6 +1,7 @@
 package ru.lok.board.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.lok.board.dto.UserDto;
 import ru.lok.board.entity.User;
@@ -15,8 +16,8 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<UserDto> findAll() {
-        return userRepository.findAll().stream().map(UserDto::userToDto).collect(Collectors.toList());
+    public List<UserDto> findAll(PageRequest pageRequest) {
+        return userRepository.findAll(pageRequest).stream().map(UserDto::userToDto).collect(Collectors.toList());
     }
 
     public UserDto add(UserDto userDTO) {
