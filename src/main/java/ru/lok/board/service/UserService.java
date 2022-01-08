@@ -34,11 +34,12 @@ public class UserService {
     }
 
     public UserDto update(UserDto userDTO) {
-        User user = new User();
-        user.setId(user.getId());
+        User user;
+        user = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new NoSuchElementException("not found user with id " + userDTO.getId()));
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
-        User us = userRepository.save(user);
-        return UserDto.userToDto(us);
+        user = userRepository.save(user);
+        return UserDto.userToDto(user);
     }
 }

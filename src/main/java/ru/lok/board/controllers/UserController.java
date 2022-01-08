@@ -17,7 +17,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/{page}/{pageSize}")//paging
+    @GetMapping("/{page}/{pageSize}")
     public ResponseEntity<List<UserDto>> all(@PathVariable int page,
                                              @PathVariable int pageSize) {
 
