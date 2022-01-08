@@ -33,9 +33,9 @@ public class CommentController {
         return ResponseEntity.ok(" deleted comment id " + id);
     }
 
-    @GetMapping("/task/{id}")
-    public ResponseEntity<List<CommentDto>> CommentsByTask(@PathVariable Long id) {
-        return ResponseEntity.ok(commentService.CommentsByTask(id));
+    @GetMapping("/task/{taskId}")//paging
+    public ResponseEntity<List<CommentDto>> CommentsByTask(@PathVariable Long taskId) {
+        return ResponseEntity.ok(commentService.CommentsByTask(taskId));
 
     }
 }

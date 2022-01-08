@@ -3,7 +3,6 @@ package ru.lok.board.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.lok.board.dto.TaskDto;
-import ru.lok.board.entity.Comment;
 import ru.lok.board.entity.Task;
 import ru.lok.board.repository.DepartmentRepository;
 import ru.lok.board.repository.TaskRepository;
@@ -37,7 +36,7 @@ public class TaskService {
         task.setId(taskDto.getId());
         task.setDepartment(departmentRepository.findById(taskDto.getDepartmentId())
                 .orElseThrow(() -> new NoSuchElementException("not found department with id " + taskDto.getDepartmentId())));
-        task.setList(new ArrayList<Comment>());
+        task.setList(new ArrayList<>());
         task.setTitle(taskDto.getTitle());
         task.setMessage(taskDto.getMessage());
         task.setUser(userRepository.findById(taskDto.getUserId())

@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/")//paging
     public ResponseEntity<List<UserDto>> all() {
         return ResponseEntity.ok(userService.findAll());
     }

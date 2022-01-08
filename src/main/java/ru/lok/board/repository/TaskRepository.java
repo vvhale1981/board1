@@ -9,8 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    List<Task> findTaskByDepartment(Department department);//
-
-    Task findTasksById(Long id);// убрать
+    List<Task> findTaskByDepartment(Department department);
 
 }

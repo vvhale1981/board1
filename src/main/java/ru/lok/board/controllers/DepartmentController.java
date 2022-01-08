@@ -29,7 +29,7 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.createDepartment(departmentDto));
     }
 
-    @GetMapping("/{idDep}/task")
+    @GetMapping("/{idDep}/task")//постраничность
     public ResponseEntity<List<TaskDto>> getTask(@PathVariable Long idDep) {
         Department department = departmentRepository.findById(idDep)
                 .orElseThrow(() -> new NoSuchElementException("not found department with id " + idDep));

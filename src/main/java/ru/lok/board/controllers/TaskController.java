@@ -16,7 +16,7 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @GetMapping("/")
+    @GetMapping("/")//paging
     public ResponseEntity<List<TaskDto>> findAll() {
         List<TaskDto> taskDto = taskService.findAll().stream().map(TaskDto::taskToDto).collect(Collectors.toList());
         return ResponseEntity.ok(taskDto);
