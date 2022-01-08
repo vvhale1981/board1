@@ -2,16 +2,16 @@ package ru.lok.board.controllers;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.DepartmentDto;
 import ru.lok.board.dto.TaskDto;
 import ru.lok.board.entity.Department;
-import ru.lok.board.repository.DepartmentRepository;
 import ru.lok.board.service.DepartmentService;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -21,7 +21,6 @@ public class DepartmentController {
 
 
     private final DepartmentService departmentService;
-    private final DepartmentRepository departmentRepository;
 
 
     @PostMapping("/")
@@ -29,11 +28,13 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentService.createDepartment(departmentDto));
     }
 
-    @GetMapping("/{idDep}/task")//постраничность
-    public ResponseEntity<List<TaskDto>> getTask(@PathVariable Long idDep) {
-        Department department = departmentRepository.findById(idDep)
-                .orElseThrow(() -> new NoSuchElementException("not found department with id " + idDep));
-        List<TaskDto> taskDtos = departmentService.getTaskForDepatment(department.getId())
+    @GetMapping("/{idDep}/task/{page}/{pageSize}")
+    public ResponseEntity<List<TaskDto>> getTask(@PathVariable Long idDep,
+                                                 @PathVariable int page,
+                                                 @PathVariable int pageSize) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
+        List<TaskDto> taskDtos = departmentService.getTaskForDepatment(idDep, pageRequest)
                 .stream().map(TaskDto::taskToDto).collect(Collectors.toList());
         return ResponseEntity.ok(taskDtos);
     }

@@ -1,6 +1,8 @@
 package ru.lok.board.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.lok.board.dto.DepartmentDto;
 import ru.lok.board.entity.Department;
@@ -30,16 +32,16 @@ public class DepartmentService {
         departmentRepository.delete(departmentRepository.findById(departmentId).orElseThrow(() -> new NoSuchElementException("not found department with id" + departmentId)));
     }
 
-    public List<Task> getAllTaskForDepartment(Long departmentId) {
-        Department department = departmentRepository.findById(departmentId).orElseThrow(() -> new NoSuchElementException("not found department with id" + departmentId));
-        return taskRepository.findTaskByDepartment(department);
-    }
+   // public Page<Task> getAllTaskForDepartment(Long departmentId) {
+   //     Department department = departmentRepository.findById(departmentId).orElseThrow(() -> new NoSuchElementException("not found department with id" + departmentId));
+   //     return taskRepository.findTaskByDepartment(department);
+   // }
 
 
-    public List<Task> getTaskForDepatment(Long departmentId) {
+    public Page<Task> getTaskForDepatment(Long departmentId, PageRequest pageRequest) {
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new NoSuchElementException("not found department with id " + departmentId));
-        return taskRepository.findTaskByDepartment(department);
+        return taskRepository.findTaskByDepartment(department, pageRequest);
     }
 
 

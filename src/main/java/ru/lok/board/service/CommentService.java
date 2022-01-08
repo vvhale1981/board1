@@ -2,6 +2,7 @@ package ru.lok.board.service;
 
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.lok.board.dto.CommentDto;
 import ru.lok.board.entity.Comment;
@@ -40,9 +41,9 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
-    public List<CommentDto> CommentsByTask(Long taskId) {
+    public List<CommentDto> CommentsByTask(Long taskId, PageRequest pageRequest) {
         return commentRepository.findAllByTask(taskRepository.findById(taskId)
-                        .orElseThrow(() -> new NoSuchElementException("not found task with id" + taskId)))
+                        .orElseThrow(() -> new NoSuchElementException("not found task with id" + taskId)), pageRequest)
                 .stream().map(CommentDto::commentToDto).collect(Collectors.toList());
     }
 }

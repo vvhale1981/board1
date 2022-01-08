@@ -1,6 +1,8 @@
 package ru.lok.board.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.CommentDto;
@@ -33,9 +35,14 @@ public class CommentController {
         return ResponseEntity.ok(" deleted comment id " + id);
     }
 
-    @GetMapping("/task/{taskId}")//paging
-    public ResponseEntity<List<CommentDto>> CommentsByTask(@PathVariable Long taskId) {
-        return ResponseEntity.ok(commentService.CommentsByTask(taskId));
+
+    @GetMapping("/task/{taskId}/{page}/{pageSize}")
+    public ResponseEntity<List<CommentDto>> CommentsByTask(@PathVariable Long taskId,
+                                                           @PathVariable int page,
+                                                           @PathVariable int pageSize) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
+        return ResponseEntity.ok(commentService.CommentsByTask(taskId, pageRequest));
 
     }
 }

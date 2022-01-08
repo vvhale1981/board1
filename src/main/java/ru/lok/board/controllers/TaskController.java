@@ -1,6 +1,8 @@
 package ru.lok.board.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lok.board.dto.TaskDto;
@@ -16,9 +18,12 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @GetMapping("/")//paging
-    public ResponseEntity<List<TaskDto>> findAll() {
-        List<TaskDto> taskDto = taskService.findAll().stream().map(TaskDto::taskToDto).collect(Collectors.toList());
+    @GetMapping("/{page}/{pageSize}")//paging
+    public ResponseEntity<List<TaskDto>> findAll(@PathVariable int page,
+                                                 @PathVariable int pageSize) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
+        List<TaskDto> taskDto = taskService.findAll(pageRequest).stream().map(TaskDto::taskToDto).collect(Collectors.toList());
         return ResponseEntity.ok(taskDto);
     }
 

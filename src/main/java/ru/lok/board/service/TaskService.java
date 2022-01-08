@@ -1,6 +1,8 @@
 package ru.lok.board.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.lok.board.dto.TaskDto;
 import ru.lok.board.entity.Task;
@@ -27,8 +29,8 @@ public class TaskService {
         return TaskDto.taskToDto(task);
     }
 
-    public List<Task> findAll() {
-        return taskRepository.findAll();
+    public Page<Task> findAll(PageRequest pageRequest) {
+        return taskRepository.findAll(pageRequest);
     }
 
     public TaskDto add(TaskDto taskDto) {
